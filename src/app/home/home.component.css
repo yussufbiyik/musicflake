@@ -1,0 +1,23 @@
+.suggest-btn{
+    min-height: 40px;
+
+    border-style: none;
+    border-radius: .5pc;
+    background: var(--main-color);
+
+    cursor: pointer;
+
+    padding: 10px;
+    font-size: 17pt;
+    text-align: left;
+    font-weight: bold;
+
+    transition-duration: .3s;
+}
+
+.suggest-btn:hover{
+    font-size: 17.1pt;
+}
+.suggest-btn:active{
+    font-size: 16.9pt;
+}
