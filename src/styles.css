@@ -9,14 +9,14 @@ html {
 }
 
 :root{
-	--bg-color:#070707;
-	--main-color:#81FC4C;
+	--bg-color:#191414;
+	--main-color:#1DB954;
 	--main-font: 'Varela', sans-serif;
 }
 
 body{
 	color: var(--main-color);
-	background: var(--bg-color);
+	background: linear-gradient( 178.1deg,  rgba(60,55,106,1) 8.5%, rgba(23,20,69,1) 82.4% );
 }
 
 *{
@@ -33,8 +33,10 @@ body::after{
 	height: 300%;
 	z-index: -1;
 	position: fixed;
-	background: url('./assets/grain.jpg');
 	animation: grain-move 8s steps(10) infinite;
+
+	background-blend-mode: screen;
+	background-image: url('./assets/grain.jpg'), linear-gradient( 178.1deg,  rgba(60,55,106,1) 8.5%, rgba(23,20,69,1) 82.4% );
 }
 
 @keyframes grain-move {
