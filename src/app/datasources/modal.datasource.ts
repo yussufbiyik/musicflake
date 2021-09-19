@@ -1,4 +1,4 @@
-import { Modal } from "src/app/modal";
+import { Modal } from "src/app/classes/modal";
 
 export const Modals:Array<Modal> = [
     {

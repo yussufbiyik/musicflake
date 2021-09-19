@@ -7,8 +7,8 @@
     <h1>Let me suggest a playlist!</h1>
     <span>Playlists are suggested based on weather conditions of your area so you will see something that says <u>"Allow Location"</u> you can get suggestions only if you allow this app to access your location.</span>
     <div class="buttons grid-row">
-        <button (click)="askForGeolocation('personal')" class="suggest-btn" disabled>Generate a playlist based on your "Liked Songs" [WIP]</button>
-        <button (click)="askForGeolocation('general')" class="suggest-btn">Suggest an already existing playlist from public playlists</button>
+        <button (click)="suggestPlaylist('personal')" class="suggest-btn" disabled>Generate a playlist based on your "Liked Songs" [WIP]</button>
+        <button (click)="suggestPlaylist('general')" class="suggest-btn">Suggest an already existing playlist from public playlists</button>
         <button class="suggest-btn">Github</button>
     </div>
 </section>

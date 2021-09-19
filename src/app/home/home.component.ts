@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Modals } from '../datasources/modal.datasource';
-import { Modal } from '../modal';
+import { Modal } from '../classes/modal';
 
 @Component({
   selector: 'app-home',
@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  askForGeolocation(mode: string){
+  suggestPlaylist(mode: string){
     if(navigator.geolocation || navigator){
       navigator.geolocation.getCurrentPosition((position) => {
         console.table({"Latitude" :position.coords.latitude, "Longtitude":position.coords.longitude})
