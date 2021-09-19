@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Modals } from '../datasources/modal.datasource';
+import { Modal } from '../modal';
 
 @Component({
   selector: 'app-home',

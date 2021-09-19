@@ -21,3 +21,47 @@
 .suggest-btn:active{
     font-size: 16.9pt;
 }
+
+.modal{
+    z-index: 1;
+    position: fixed;
+
+    width: fit-content;
+    max-width: 95vw;
+
+    height: fit-content;
+    max-height: 95vh;
+    
+    border-radius: 1pc;
+    background: var(--bg-color);
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+    box-shadow: 0 0 15px -5px black;
+
+    padding: 20px;
+
+    display: grid;
+    row-gap: 10px;
+    justify-items: left;
+    grid-auto-flow: row;
+
+    overflow-y: auto;
+}
+
+.close-btn{
+    display: grid;
+    place-items: center;
+
+    color: white;
+    border-style: none;
+    background: transparent;
+
+    cursor: pointer;
+}
+
+.invisible{
+    top: -50%;
+}

@@ -9,7 +9,7 @@ html {
 }
 
 :root{
-	--bg-color:#191414;
+	--bg-color:#171445;
 	--main-color:#1DB954;
 	--main-font: 'Varela', sans-serif;
 }
@@ -21,6 +21,7 @@ body{
 
 *{
 	font-family: var(--main-font);
+	transition-duration: .3s;
 }
 *:focus{outline: none;}
 

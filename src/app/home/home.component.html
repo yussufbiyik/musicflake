@@ -1,17 +1,14 @@
 <section id="header" class="header section-grid-row">
     <h1>🎧 Musicflake</h1>
-    <span><u>Listen to music based on weather conditions of your area!</u></span>
+    <span>Listen to music based on weather conditions of your area!</span>
 </section>
 
 <section id="options" class="options section-grid-row">
     <h1>Let me suggest a playlist!</h1>
-    <span><u>Playlists are suggested based on weather conditions of your area so you will see something that says "Allow Location" you can get suggestions only if you allow this webpage to access your location.</u></span>
+    <span>Playlists are suggested based on weather conditions of your area so you will see something that says <u>"Allow Location"</u> you can get suggestions only if you allow this app to access your location.</span>
     <div class="buttons grid-row">
-        <button (click)="askForGeolocation('personal')" class="suggest-btn">Generate a playlist based on your "Liked Songs" [WIP]</button>
+        <button (click)="askForGeolocation('personal')" class="suggest-btn" disabled>Generate a playlist based on your "Liked Songs" [WIP]</button>
         <button (click)="askForGeolocation('general')" class="suggest-btn">Suggest an already existing playlist from public playlists</button>
-        <div class="other-buttons grid-columns">
-            <button class="suggest-btn">Github</button>
-            <button class="suggest-btn">How does this work ?</button>
-        </div>
+        <button class="suggest-btn">Github</button>
     </div>
 </section>
