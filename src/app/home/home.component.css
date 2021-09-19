@@ -1,15 +1,16 @@
 .suggest-btn{
+    width: 100%;
     min-height: 40px;
 
-    border-style: none;
+    border-style : none;
     border-radius: .5pc;
-    background: var(--main-color);
+    background   : var(--main-color);
 
     cursor: pointer;
 
-    padding: 10px;
-    font-size: 17pt;
-    text-align: left;
+    padding    : 10px;
+    font-size  : 17pt;
+    text-align : left;
     font-weight: bold;
 
     transition-duration: .3s;
@@ -23,43 +24,51 @@
 }
 
 .modal{
-    z-index: 1;
+    z-index : 1;
     position: fixed;
 
-    width: fit-content;
+    width    : fit-content;
     max-width: 95vw;
 
-    height: fit-content;
+    height    : fit-content;
     max-height: 95vh;
     
     border-radius: 1pc;
-    background: var(--bg-color);
+    background   : var(--bg-color);
 
-    top: 50%;
-    left: 50%;
+    top      : 50%;
+    left     : 50%;
     transform: translate(-50%,-50%);
 
     box-shadow: 0 0 15px -5px black;
 
     padding: 20px;
 
-    display: grid;
-    row-gap: 10px;
-    justify-items: left;
+    display       : grid;
+    row-gap       : 10px;
+    justify-items : left;
     grid-auto-flow: row;
 
     overflow-y: auto;
 }
 
 .close-btn{
-    display: grid;
+    position: absolute;
+    top     : 20px;
+    right   : 20px;
+
+    display    : grid;
     place-items: center;
 
-    color: white;
+    color       : white;
     border-style: none;
-    background: transparent;
+    background  : transparent;
 
     cursor: pointer;
+}
+
+.modal-content{
+    width: 100%;
 }
 
 .invisible{

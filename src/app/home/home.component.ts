@@ -17,6 +17,44 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
   
+  toggleModal(modalId?:string, modal?:Modal){
+    var documentModal = document.getElementById('modal')
+    var modalHeader = document.getElementById('modal-header')
+    var modalContent = document.getElementById('modal-content')
+    if(modalId){
+      var modal = Modals.find((modal:Modal)=>{
+        if(modal.id == modalId){
+          return true;
+        }else{
+          return false
+        }
+      });
+      
+      if(modal){
+        if(modalHeader && modalContent){
+          modalHeader.innerHTML = modal.header
+          modalContent.innerHTML = modal.content
+        }
+        documentModal?.classList.toggle('invisible')
+      }
+    }else{
+      documentModal?.classList.toggle('invisible')
+    }
+  }
+
+  createModal(modal:Modal){
+    var documentModal = document.getElementById('modal')
+    var modalHeader = document.getElementById('modal-header')
+    var modalContent = document.getElementById('modal-content')
+    if(modal){
+      if(modalHeader && modalContent){
+        modalHeader.innerHTML = modal.header
+        modalContent.innerHTML = modal.content
+      }
+      documentModal?.classList.toggle('invisible')
+    }
+  }
+
   recommendPlaylistBasedOffWeathercode(weathercode: Number){
     // Search for playlists with a compatible weathercode with users
     let playlistMatches = Playlists.filter((playlist:Playlist)=>{
@@ -28,8 +66,8 @@ export class HomeComponent implements OnInit {
     })
 
     // Select a random playlist from playlistMatches
-    let recomendation = playlistMatches[Math.floor(Math.random()*playlistMatches.length)]
-    return recomendation
+    let recommendation = playlistMatches[Math.floor(Math.random()*playlistMatches.length)]
+    return recommendation
   }
 
   suggestPlaylist(mode: string){
@@ -40,7 +78,12 @@ export class HomeComponent implements OnInit {
           var currentTime = `${new Date().toISOString().substr(0,13)}:00`;
           var currentTimeWeatherIndex = resp.hourly.time.findIndex((time:string) => time === currentTime)
           var currentTimeWeathercode = resp.hourly.weathercode[currentTimeWeatherIndex]
-          this.recommendPlaylistBasedOffWeathercode(currentTimeWeathercode);
+          var modal: Modal = {
+            id:'playlist',
+            header:'🎆 Here is your playlist.',
+            content:`<iframe src="${this.recommendPlaylistBasedOffWeathercode(currentTimeWeathercode).uri}" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`,
+          }
+          this.createModal(modal)
         })
       })
     }else{
