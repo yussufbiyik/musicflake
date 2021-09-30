@@ -24,7 +24,7 @@
 }
 
 .modal{
-    z-index : 1;
+    z-index : 2;
     position: fixed;
 
     width    : fit-content;
@@ -71,6 +71,20 @@
     width: 100%;
 }
 
-.invisible{
+.hidden{
     top: -50%;
+}
+.invisible{
+    display: none;
+}
+
+.backdrop{
+    z-index: 1;
+    position: absolute;
+
+    width: 100vw;
+    height: 100vh;
+    background: rgba(32, 32, 32, 0.473);
+    top: 0;
+    left: 0;
 }

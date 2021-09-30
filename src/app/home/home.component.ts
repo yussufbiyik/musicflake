@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   
   toggleModal(modalId?:string, modal?:Modal){
     var documentModal = document.getElementById('modal')
+    var backdropElement = document.getElementById('backdrop')
     var modalHeader = document.getElementById('modal-header')
     var modalContent = document.getElementById('modal-content')
     if(modalId){
@@ -35,23 +36,27 @@ export class HomeComponent implements OnInit {
           modalHeader.innerHTML = modal.header
           modalContent.innerHTML = modal.content
         }
-        documentModal?.classList.toggle('invisible')
+        documentModal?.classList.toggle('hidden')
+        backdropElement?.classList.toggle('invisible')
       }
     }else{
-      documentModal?.classList.toggle('invisible')
+      documentModal?.classList.toggle('hidden')
+      backdropElement?.classList.toggle('invisible')
     }
   }
 
   createModal(modal:Modal){
     var documentModal = document.getElementById('modal')
+    var backdropElement = document.getElementById('backdrop')
     var modalHeader = document.getElementById('modal-header')
     var modalContent = document.getElementById('modal-content')
-    if(modal){
+    if(modal && backdropElement){
       if(modalHeader && modalContent){
         modalHeader.innerHTML = modal.header
         modalContent.innerHTML = modal.content
       }
-      documentModal?.classList.toggle('invisible')
+      documentModal?.classList.toggle('hidden')
+      backdropElement?.classList.toggle('invisible')
     }
   }
 
