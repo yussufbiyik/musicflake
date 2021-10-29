@@ -9,14 +9,15 @@ html {
 }
 
 :root{
-	--bg-color:#171445;
-	--main-color:#1DB954;
+	--bg-color:#F5F5F5;
+	--text-color:#070707;
+	--button-color:#ffffff;
 	--main-font: 'Varela', sans-serif;
 }
 
 body{
-	color: var(--main-color);
-	background: linear-gradient( 178.1deg,  rgba(60,55,106,1) 8.5%, rgba(23,20,69,1) 82.4% );
+	color: var(--text-color);
+	background: var(--bg-color);
 }
 
 *{
@@ -24,21 +25,6 @@ body{
 	transition-duration: .3s;
 }
 *:focus{outline: none;}
-
-body::after{
-	content: ' ';
-
-	left: -50%;
-	top: -100%;
-	width: 300%;
-	height: 300%;
-	z-index: -1;
-	position: fixed;
-	animation: grain-move 8s steps(10) infinite;
-
-	background-blend-mode: screen;
-	background-image: url('./assets/grain.webp'), linear-gradient( 178.1deg,  rgba(60,55,106,1) 8.5%, rgba(23,20,69,1) 82.4% );
-}
 
 @keyframes grain-move {
 	0%, 100% { transform:translate(0, 0) }

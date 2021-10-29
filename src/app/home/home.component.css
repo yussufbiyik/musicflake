@@ -4,7 +4,7 @@
 
     border-style : none;
     border-radius: .5pc;
-    background   : var(--main-color);
+    background   : var(--button-color);
 
     cursor: pointer;
 
@@ -57,9 +57,9 @@
     top     : 20px;
     right   : 20px;
 
-    color       : white;
     border-style: none;
     background  : transparent;
+    color       : var(--text-color);
 
     cursor: pointer;
 }
