@@ -2,7 +2,7 @@
     width: 100%;
     min-height: 40px;
 
-    border-style : none;
+    border: 1px solid var(--button-outline-color);
     border-radius: .5pc;
     background   : var(--button-color);
 
@@ -41,6 +41,7 @@
     left     : 50%;
     transform: translate(-50%,-50%);
 
+	transition-duration: .4s;
     box-shadow: 0 0 15px -5px black;
 
     padding: 20px;
