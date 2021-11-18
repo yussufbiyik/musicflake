@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
     if(!modalHeader || !modalContent || !documentModal || !backdropElement) {
       this.openModal('error', {
         headerParameters:[],
-        contentParameters:[`Error:<br>One of the following elements does not exist:<br>modalHeader modalContent documentModal backdropElement`]
+        contentParameters:[`Error:<br>One or more of the following elements does not exist:<br>modalHeader, modalContent, documentModal, backdropElement`]
       }); 
       return;
     } 
@@ -72,24 +72,16 @@ export class HomeComponent implements OnInit {
     backdropElement?.classList.toggle('invisible')
   }
 
-  createModal(modal:Modal){
-    var documentModal = document.getElementById('modal')
-    var backdropElement = document.getElementById('backdrop')
-    var modalHeader = document.getElementById('modal-header')
-    var modalContent = document.getElementById('modal-content')
-    if(!modalHeader || !modalContent || !documentModal || !backdropElement) {this.openModal('error'); return;}
-    modalHeader.innerHTML = modal.header
-    modalContent.innerHTML = modal.content
-    documentModal?.classList.toggle('hidden')
-    backdropElement?.classList.toggle('invisible')
-  }
-
   recommendPlaylistBasedOffWeathercode(weathercode: Number){
     // Search for playlists with a compatible weathercode with users
-    let playlistMatches = Playlists.filter((playlist:Playlist)=> playlist.weathercodes.includes(weathercode))
+    let playlistMatches: Array<Playlist> = Playlists.filter((playlist:Playlist)=> playlist.weathercodes.includes(weathercode))
     // Select a random playlist from playlistMatches
-    let recommendation = playlistMatches[Math.floor(Math.random()*playlistMatches.length)]
+    let recommendation: Playlist = playlistMatches[Math.floor(Math.random()*playlistMatches.length)]
     return recommendation
+  }
+
+  createSpotifyEmbedUrl(playlistUrl:String){
+    return `https://open.spotify.com/embed/playlist/${playlistUrl.substring(34, 76)}`
   }
 
   suggestPlaylist(mode: string){
@@ -99,19 +91,14 @@ export class HomeComponent implements OnInit {
         contentParameters:[`Your browser does not support geolocation 😢`]
       });
     }
-    navigator.geolocation.getCurrentPosition((position) => {
-      var openmateoApiUrl: string = `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=temperature_2m,relativehumitidy_2m,weathercode`
-      this.http.get<any>(openmateoApiUrl).subscribe((resp:any) => {
-        var currentTime = `${new Date().toISOString().substr(0,13)}:00`
-        var currentTimeWeatherIndex = resp.hourly.time.findIndex((time:string) => time === currentTime)
-        var currentTimeWeathercode = resp.hourly.weathercode[currentTimeWeatherIndex]
-        var modal: Modal = {
-          shorthand:'playlist',
-          header:'🎆 Here is your playlist.',
-          content:`<iframe src="${this.recommendPlaylistBasedOffWeathercode(currentTimeWeathercode).uri}" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`,
-        }
-        this.createModal(modal)
-      })
+    var currentPosition: any = navigator.geolocation.getCurrentPosition((position) => {return position;})
+    var openmateoApiUrl: string = `https://api.open-meteo.com/v1/forecast?latitude=${currentPosition.coords.latitude}&longitude=${currentPosition.coords.longitude}&hourly=temperature_2m,relativehumitidy_2m,weathercode`
+    this.http.get<any>(openmateoApiUrl).subscribe((resp:any) => {
+      var currentTime = `${new Date().toISOString().substr(0,13)}:00`
+      var currentTimeWeatherIndex = resp.hourly.time.findIndex((time:string) => time === currentTime)
+      var currentTimeWeathercode = resp.hourly.weathercode[currentTimeWeatherIndex]
+      var playlistEmbedSource = this.createSpotifyEmbedUrl(this.recommendPlaylistBasedOffWeathercode(currentTimeWeathercode).url);
+      this.openModal('playlist', {headerParameters:[], contentParameters:[playlistEmbedSource]})
     })
   }
 }

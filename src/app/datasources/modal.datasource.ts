@@ -8,7 +8,12 @@ export const Modals:Array<Modal> = [
     },
     {
         shorthand:'error',
-        header:"Something happened.",
+        header:"Something happened. 🧰",
         content:`A problem just occured, can you share us how to reproduce this problem, you can do this by repeating what you just did and sharing it with us.<br><br>{{param0}}`,
+    },
+    {
+        shorthand:'playlist',
+        header:'Here is your playlist. 🎧',
+        content:`<iframe src="{{param0}}" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`,
     },
 ]
