@@ -25,9 +25,8 @@ export class HomeComponent implements OnInit {
         modal.header = modal.header.replace(currentParameter, headingParameter)
         headingCounter++
       });
-      console.log("replaced header")
     }
-    if(parameters.contentParameters.length==0){
+    if(parameters.contentParameters.length>0){
       var contentCounter:number = 0
       parameters.contentParameters.forEach((contentParameter:string) => {
         let currentParameter = `{{param${contentCounter}}}`;
@@ -95,7 +94,10 @@ export class HomeComponent implements OnInit {
 
   suggestPlaylist(mode: string){
     if(!navigator.geolocation || !navigator) {
-      alert('Your browser does not support geolocation 😢')
+      this.openModal('error', {
+        headerParameters:[],
+        contentParameters:[`Your browser does not support geolocation 😢`]
+      });
     }
     navigator.geolocation.getCurrentPosition((position) => {
       var openmateoApiUrl: string = `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=temperature_2m,relativehumitidy_2m,weathercode`
