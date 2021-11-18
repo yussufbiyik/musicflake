@@ -1,5 +1,5 @@
 export class Modal {
-    id!     : string;
-    header! : string;
-    content!: string;
+    shorthand!: string;
+    header!   : string;
+    content!  : string;
 }

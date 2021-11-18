@@ -17,14 +17,12 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  toggleModal(modalId?:string, modal?:Modal){
+  openModal(modalShorthand:string, modal?:Modal){
     var documentModal = document.getElementById('modal')
     var backdropElement = document.getElementById('backdrop')
-    var modalHeader = document.getElementById('modal-header')
-    var modalContent = document.getElementById('modal-content')
-    if(modalId){
+    if(modalShorthand){
       var modal = Modals.find((modal:Modal)=>{
-        if(modal.id == modalId){
+        if(modal.shorthand == modalShorthand){
           return true;
         }else{
           return false
@@ -32,6 +30,8 @@ export class HomeComponent implements OnInit {
       });
       
       if(modal){
+        var modalHeader = document.getElementById('modal-header')
+        var modalContent = document.getElementById('modal-content')
         if(modalHeader && modalContent){
           modalHeader.innerHTML = modal.header
           modalContent.innerHTML = modal.content
@@ -39,10 +39,14 @@ export class HomeComponent implements OnInit {
         documentModal?.classList.toggle('hidden')
         backdropElement?.classList.toggle('invisible')
       }
-    }else{
-      documentModal?.classList.toggle('hidden')
-      backdropElement?.classList.toggle('invisible')
     }
+  }
+
+  closeModal(){
+    var documentModal = document.getElementById('modal')
+    var backdropElement = document.getElementById('backdrop')
+    documentModal?.classList.toggle('hidden')
+    backdropElement?.classList.toggle('invisible')
   }
 
   createModal(modal:Modal){
@@ -84,7 +88,7 @@ export class HomeComponent implements OnInit {
           var currentTimeWeatherIndex = resp.hourly.time.findIndex((time:string) => time === currentTime)
           var currentTimeWeathercode = resp.hourly.weathercode[currentTimeWeatherIndex]
           var modal: Modal = {
-            id:'playlist',
+            shorthand:'playlist',
             header:'🎆 Here is your playlist.',
             content:`<iframe src="${this.recommendPlaylistBasedOffWeathercode(currentTimeWeathercode).uri}" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`,
           }
