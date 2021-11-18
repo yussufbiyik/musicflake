@@ -62,7 +62,12 @@ code {
   letter-spacing: var(--letter-spacing);
   font-weight: calc(var(--font-weight)* 1.33);
   color: var(--red);
-  font-family: var(--font-family);
+  font-family: monospace;
+
+  display: block;
+  padding: 10px;
+  border-radius: .5pc;
+  background: rgba(0, 0, 0, .3);
 }
 
 mark {

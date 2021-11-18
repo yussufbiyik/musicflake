@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
     if(!modal) {
       this.openModal('error', {
         headerParameters:[],
-        contentParameters:[`Error:<br>Cannot find modal with specified shorthand (${modalShorthand})`]
+        contentParameters:[`<code>Error:<br>Cannot find modal with specified shorthand (${modalShorthand})</code>`]
       }); 
       return;
     }
@@ -53,11 +53,10 @@ export class HomeComponent implements OnInit {
     if(!modalHeader || !modalContent || !documentModal || !backdropElement) {
       this.openModal('error', {
         headerParameters:[],
-        contentParameters:[`Error:<br>One or more of the following elements does not exist:<br>modalHeader, modalContent, documentModal, backdropElement`]
+        contentParameters:[`<code>Error:<br>One or more of the following elements does not exist:<br>modalHeader, modalContent, documentModal, backdropElement</code>`]
       }); 
       return;
     } 
-
     if(parameters) modal = this.modifyModalWithParameters(modal, parameters)
     modalHeader.innerHTML = modal.header
     modalContent.innerHTML = modal.content
@@ -90,6 +89,7 @@ export class HomeComponent implements OnInit {
         headerParameters:[],
         contentParameters:[`Your browser does not support geolocation 😢`]
       });
+      return;
     }
     var currentPosition: any = navigator.geolocation.getCurrentPosition((position) => {return position;})
     var openmateoApiUrl: string = `https://api.open-meteo.com/v1/forecast?latitude=${currentPosition.coords.latitude}&longitude=${currentPosition.coords.longitude}&hourly=temperature_2m,relativehumitidy_2m,weathercode`
