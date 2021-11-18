@@ -16,15 +16,50 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  modifyModalWithParameters(modal:Modal, parameters:any){
+    if(parameters.headerParameters.length>0){
+      var headingCounter:number = 0
+      parameters.headerParameters.forEach((headingParameter:string) => {
+        let currentParameter = `{{param${headingCounter}}}`;
+        modal.header = modal.header.replace(currentParameter, headingParameter)
+        headingCounter++
+      });
+      console.log("replaced header")
+    }
+    if(parameters.contentParameters.length==0){
+      var contentCounter:number = 0
+      parameters.contentParameters.forEach((contentParameter:string) => {
+        let currentParameter = `{{param${contentCounter}}}`;
+        modal.content = modal.content.replace(currentParameter, contentParameter)
+        contentCounter++
+      });
+    }
+    return modal
+  }
   
-  openModal(modalShorthand:string){
+  openModal(modalShorthand:string, parameters?:Object){
     var documentModal = document.getElementById('modal')
     var backdropElement = document.getElementById('backdrop')
     var modal = Modals.find((modal:Modal)=> modal.shorthand === modalShorthand)
-    if(!modal) {this.openModal('error'); return;}
+    if(!modal) {
+      this.openModal('error', {
+        headerParameters:[],
+        contentParameters:[`Error:<br>Cannot find modal with specified shorthand (${modalShorthand})`]
+      }); 
+      return;
+    }
     var modalHeader = document.getElementById('modal-header')
     var modalContent = document.getElementById('modal-content')
-    if(!modalHeader || !modalContent || !documentModal || !backdropElement) {this.openModal('error'); return;}
+    if(!modalHeader || !modalContent || !documentModal || !backdropElement) {
+      this.openModal('error', {
+        headerParameters:[],
+        contentParameters:[`Error:<br>One of the following elements does not exist:<br>modalHeader modalContent documentModal backdropElement`]
+      }); 
+      return;
+    } 
+
+    if(parameters) modal = this.modifyModalWithParameters(modal, parameters)
     modalHeader.innerHTML = modal.header
     modalContent.innerHTML = modal.content
     documentModal.classList.toggle('hidden')

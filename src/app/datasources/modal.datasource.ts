@@ -9,6 +9,6 @@ export const Modals:Array<Modal> = [
     {
         shorthand:'error',
         header:"Something happened.",
-        content:"A problem just occured, can you share us how to reproduce this problem, you can do this by repeating what you just did and sharing it with us.",
+        content:`A problem just occured, can you share us how to reproduce this problem, you can do this by repeating what you just did and sharing it with us.<br><br>{{param0}}`,
     },
 ]
