@@ -91,14 +91,15 @@ export class HomeComponent implements OnInit {
       });
       return;
     }
-    var currentPosition: any = navigator.geolocation.getCurrentPosition((position) => {return position;})
-    var openmateoApiUrl: string = `https://api.open-meteo.com/v1/forecast?latitude=${currentPosition.coords.latitude}&longitude=${currentPosition.coords.longitude}&hourly=temperature_2m,relativehumitidy_2m,weathercode`
-    this.http.get<any>(openmateoApiUrl).subscribe((resp:any) => {
-      var currentTime = `${new Date().toISOString().substr(0,13)}:00`
-      var currentTimeWeatherIndex = resp.hourly.time.findIndex((time:string) => time === currentTime)
-      var currentTimeWeathercode = resp.hourly.weathercode[currentTimeWeatherIndex]
-      var playlistEmbedSource = this.createSpotifyEmbedUrl(this.recommendPlaylistBasedOffWeathercode(currentTimeWeathercode).url);
-      this.openModal('playlist', {headerParameters:[], contentParameters:[playlistEmbedSource]})
+    navigator.geolocation.getCurrentPosition((position) => {
+      var openmateoApiUrl: string = `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=temperature_2m,relativehumitidy_2m,weathercode`
+      this.http.get<any>(openmateoApiUrl).subscribe((resp:any) => {
+        var currentTime = `${new Date().toISOString().substr(0,13)}:00`
+        var currentTimeWeatherIndex = resp.hourly.time.findIndex((time:string) => time === currentTime)
+        var currentTimeWeathercode = resp.hourly.weathercode[currentTimeWeatherIndex]
+        var playlistEmbedSource = this.createSpotifyEmbedUrl(this.recommendPlaylistBasedOffWeathercode(currentTimeWeathercode).url);
+        this.openModal('playlist', {headerParameters:[], contentParameters:[playlistEmbedSource]})
+      })
     })
   }
 }
