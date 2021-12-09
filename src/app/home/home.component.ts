@@ -40,7 +40,9 @@ export class HomeComponent implements OnInit {
   openModal(modalShorthand:string, parameters?:Object){
     var documentModal = document.getElementById('modal')
     var backdropElement = document.getElementById('backdrop')
-    var modal = Modals.find((modal:Modal)=> modal.shorthand === modalShorthand)
+    // Clone the object to keep the original object the way it is so that it does not get modified and cause the parameters to disappear and make the same playlist show up everytime
+    var modal = Object.assign({}, Modals.find((modal:Modal)=> modal.shorthand === modalShorthand))
+    console.log(modal)
     if(!modal) {
       this.openModal('error', {
         headerParameters:[],
