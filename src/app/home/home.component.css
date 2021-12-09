@@ -1,4 +1,4 @@
-.suggest-btn{
+.default-button, .modal-content button{
     width: 100%;
     min-height: 60px;
 
@@ -17,10 +17,10 @@
     box-shadow: 0 0 10px -7px #0A0A0A;
 }
 
-.suggest-btn:hover{
+.default-button:hover, .modal-content button:hover{
     font-size: 17.1pt;
 }
-.suggest-btn:active{
+.default-button:active, .modal-content button:active{
     font-size: 16.9pt;
 }
 
@@ -67,6 +67,7 @@
 }
 
 .modal-content{
+    margin: 0;
     width: 100%;
 }
 

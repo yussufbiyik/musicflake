@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit {
     return `https://open.spotify.com/embed/playlist/${playlistUrl.substring(34, 76)}`
   }
 
-  suggestPlaylist(mode: string){
+  suggestPlaylist(){
     if(!navigator.geolocation || !navigator) {
       this.openModal('error', {
         headerParameters:[],
@@ -99,8 +99,9 @@ export class HomeComponent implements OnInit {
         var currentTime = `${new Date().toISOString().substr(0,13)}:00`
         var currentTimeWeatherIndex = resp.hourly.time.findIndex((time:string) => time === currentTime)
         var currentTimeWeathercode = resp.hourly.weathercode[currentTimeWeatherIndex]
-        var playlistEmbedSource = this.createSpotifyEmbedUrl(this.recommendPlaylistBasedOffWeathercode(currentTimeWeathercode).url);
-        this.openModal('playlist', {headerParameters:[], contentParameters:[playlistEmbedSource]})
+        var recommendedPlaylist = this.recommendPlaylistBasedOffWeathercode(currentTimeWeathercode);
+        var playlistEmbedSource = this.createSpotifyEmbedUrl(recommendedPlaylist.url);
+        this.openModal('playlist', {headerParameters:[], contentParameters:[playlistEmbedSource, recommendedPlaylist.uri]})
       })
     })
   }
