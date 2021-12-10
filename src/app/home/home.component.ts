@@ -17,6 +17,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+/*
+  * Modifies modal parameters
+  * @param {Modal} modal - Modal that needs to get its params replaced with the parameters object that's being passed to our function.
+  * @param {Object} parameters - Parameters that replace the suitable places in the modal.
+*/
   modifyModalWithParameters(modal:Modal, parameters:any){
     if(parameters.headerParameters.length>0){
       var headingCounter:number = 0
