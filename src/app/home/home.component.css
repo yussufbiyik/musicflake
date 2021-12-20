@@ -1,4 +1,4 @@
-.default-button, .modal-content button{
+.default-button, .modal-content::ng-deep button{
     width: 100%;
     min-height: 60px;
 
@@ -16,11 +16,14 @@
     transition-duration: .3s;
     box-shadow: 0 0 10px -7px #0A0A0A;
 }
+.modal-content::ng-deep button{
+    width: fit-content;
+}
 
-.default-button:hover, .modal-content button:hover{
+.default-button:hover, .modal-content::ng-deep button:hover{
     font-size: 17.1pt;
 }
-.default-button:active, .modal-content button:active{
+.default-button:active, .modal-content::ng-deep button:active{
     font-size: 16.9pt;
 }
 
@@ -69,6 +72,9 @@
 .modal-content{
     margin: 0;
     width: 100%;
+}
+.modal-content::ng-deep iframe{
+    border-radius: .5pc;
 }
 
 .hidden{

@@ -14,6 +14,6 @@ export const Modals:Array<Modal> = [
     {
         shorthand:'playlist',
         header:'Here is your playlist. 🎧',
-        content:`<iframe style="border-radius:.5pc" src="{{param0}}" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe><br><a href="{{param1}}" rel="noopener"><button style="min-height: 60px;border: 1px solid var(--button-outline-color);border-radius: .5pc;background: var(--button-color);cursor: pointer;padding: 10px;font-size  : 17pt;text-align : left;font-weight: bold;transition-duration: .3s;box-shadow: 0 0 10px -7px #0A0A0A;">Open in Spotify 🎵</button></a>`,
+        content:`<iframe src="{{param0}}" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe><br><a href="{{param1}}" rel="noopener"><button>Open in Spotify 🎵</button></a>`,
     },
 ]
