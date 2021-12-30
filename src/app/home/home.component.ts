@@ -38,6 +38,9 @@ export class HomeComponent implements OnInit {
     notificatonHeader.innerHTML = header;
     notificatonDescription.innerHTML = description;
     if(notification.classList.contains('bottom-hidden')) notification.classList.toggle('bottom-hidden');
+    setTimeout(() => {
+      this.closeNotification()
+    }, 3000);
   }
 
   closeNotification(){
@@ -77,7 +80,6 @@ export class HomeComponent implements OnInit {
     var backdropElement = document.getElementById('backdrop')
     // Clone the object to keep the original object the way it is so that it does not get modified and cause the parameters to disappear and make the same playlist show up everytime
     var modal = Object.assign({}, Modals.find((modal:Modal)=> modal.shorthand === modalShorthand))
-    console.log(modal)
     if(!modal) {
       this.openModal('error', {
         headerParameters:[],
@@ -99,6 +101,13 @@ export class HomeComponent implements OnInit {
     modalContent.innerHTML = modal.content
     documentModal.classList.toggle('hidden')
     backdropElement.classList.toggle('invisible')
+
+    var spotifyButton = document.getElementById('spotify-button')
+    if(spotifyButton){
+      spotifyButton.addEventListener('click', () => {
+        this.openNotification('Playlist is Opened!', 'Check your Spotify app.')
+      })
+    }
   }
 
   closeModal(){
