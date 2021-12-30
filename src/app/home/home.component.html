@@ -1,5 +1,5 @@
 <section id="header" class="header section-grid-row">
-    <h1>🎧 Musicflake</h1>
+    <h1><span class="emoji">🎧</span> Musicflake</h1>
     <span>Listen to music based on weather conditions of your area!</span>
 </section>
 
@@ -7,9 +7,10 @@
     <h1>Let me suggest a playlist!</h1>
     <span>Playlists are suggested based on weather conditions of your area so you will see something that says <u>"Allow Location"</u> you can get suggestions only if you allow this app to access your location.</span>
     <div class="buttons grid-row">
-        <button (click)="suggestPlaylist()" class="default-button">Let me recommend you some music! 😱</button>
-        <button (click)="openModal('faq')" class="default-button">How does it work? 🤔</button>
-        <a class="link-btn" href="https://github.com/yussufbiyik" rel="noopener" target="_blank"><button class="default-button">Github 🤖</button></a>
+        <button (click)="suggestPlaylist()" class="default-button">Get your recommendation!</button>
+        <button (click)="openModal('faq')" class="default-button">How does it work?</button>
+        <button (click)="openNotification('header', 'description')" class="default-button">Test notification</button>
+        <a class="link-btn" href="https://github.com/yussufbiyik" rel="noopener" target="_blank"><button class="default-button">Visit My GitHub</button></a>
     </div>
 </section>
 
@@ -22,6 +23,12 @@
     </button>
     <h1 id="modal-header" class="modal-header"></h1>
     <p id="modal-content" class="modal-content"></p>
+</section>
+
+<section (click)="closeNotification()" id="notification" class="notification bottom-hidden">
+    <h6 id="notification-header" class="notification-header">Lorem ipsum dolor sit amet.</h6>
+    <p id="notification-description" class="notification-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, itaque.</p>
+    <small>Click anywhere on the notification to close it.</small>
 </section>
 
 <div id="backdrop" (click)="closeModal()" class="backdrop invisible"></div>

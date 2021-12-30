@@ -17,6 +17,41 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openNotification(header: string, description: string){
+    var notification = document.getElementById('notification')
+    var notificatonHeader = document.getElementById('notification-header')
+    var notificatonDescription = document.getElementById('notification-description')
+    if(!notification){
+      this.openModal('error', {
+        headerParameters:[],
+        contentParameters:[`<code>Error:<br>Element with the id of 'notification' does not exist.</code>`]
+      }); 
+      return;
+    }
+    if(!notificatonHeader || !notificatonDescription){
+      this.openModal('error', {
+        headerParameters:[],
+        contentParameters:[`<code>Error:<br>One or more of the following elements does not exist:<br>notificatonHeader, notificatonDescription</code>`]
+      }); 
+      return;
+    }
+    notificatonHeader.innerHTML = header;
+    notificatonDescription.innerHTML = description;
+    if(notification.classList.contains('bottom-hidden')) notification.classList.toggle('bottom-hidden');
+  }
+
+  closeNotification(){
+    var notification = document.getElementById('notification')
+    if(!notification){
+      this.openModal('error', {
+        headerParameters:[],
+        contentParameters:[`<code>Error:<br>Element with the id of 'notification' does not exist.</code>`]
+      }); 
+      return;
+    }
+    notification.classList.toggle('bottom-hidden')
+  }
+
   modifyModalWithParameters(modal:Modal, parameters:any){
     if(parameters.headerParameters.length>0){
       var headingCounter:number = 0
