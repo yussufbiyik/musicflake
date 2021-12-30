@@ -167,3 +167,7 @@ h6 {
   font-weight: calc(var(--font-weight)* 1);
   font-family: var(--font-family);
 }
+
+.emoji{
+  font-weight: normal;
+}
