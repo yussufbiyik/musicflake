@@ -9,7 +9,6 @@
     <div class="buttons grid-row">
         <button (click)="suggestPlaylist()" class="default-button">Get your recommendation!</button>
         <button (click)="openModal('faq')" class="default-button">How does it work?</button>
-        <button (click)="openNotification('header', 'description')" class="default-button">Test notification</button>
         <a class="link-btn" href="https://github.com/yussufbiyik" rel="noopener" target="_blank"><button class="default-button">Visit My GitHub</button></a>
     </div>
 </section>
@@ -26,8 +25,8 @@
 </section>
 
 <section (click)="closeNotification()" id="notification" class="notification bottom-hidden">
-    <h6 id="notification-header" class="notification-header">Lorem ipsum dolor sit amet.</h6>
-    <p id="notification-description" class="notification-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, itaque.</p>
+    <h6 id="notification-header" class="notification-header"></h6>
+    <p id="notification-description" class="notification-description"></p>
     <small>Click anywhere on the notification to close it.</small>
 </section>
 
