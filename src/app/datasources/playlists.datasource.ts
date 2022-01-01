@@ -317,7 +317,7 @@ export const Playlists: Array < Playlist > = [
 		name: "cold fall flannel and sweater weather",
 		uri: "spotify:playlist:7fmytdR9cia30HR4IH6qKJ?si=8a910c5919294546",
 		url: "https://open.spotify.com/playlist/7fmytdR9cia30HR4IH6qKJ?si=8a910c5919294546",
-		weathercodes: [55, 57, 45, 48],
+		weathercodes: [55, 57, 45, 48, 61],
 		timeofday: ["morning", "noon", "night"],
 		score: 10
 	}

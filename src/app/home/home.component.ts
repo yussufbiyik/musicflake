@@ -140,7 +140,7 @@ export class HomeComponent implements OnInit {
     navigator.geolocation.getCurrentPosition((position) => {
       var openmateoApiUrl: string = `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=temperature_2m,relativehumitidy_2m,weathercode`
       this.http.get<any>(openmateoApiUrl).subscribe((resp:any) => {
-        var currentTime = `${new Date().toISOString().substr(0,13)}:00`
+        var currentTime = `${new Date().toISOString().substring(0,13)}:00`
         var currentTimeWeatherIndex = resp.hourly.time.findIndex((time:string) => time === currentTime)
         var currentTimeWeathercode = resp.hourly.weathercode[currentTimeWeatherIndex]
         var recommendedPlaylist = this.recommendPlaylistBasedOffWeathercode(currentTimeWeathercode);
