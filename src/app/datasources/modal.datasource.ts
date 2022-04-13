@@ -18,11 +18,21 @@ export const Modals:Array<Modal> = [
         <iframe src="{{param0}}" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         <br>
         <div class="modal-buttons">
-            <a href="{{param1}}" rel="noopener"><button id="spotify-button">Open in Spotify 🎵</button></a>
+            <a id="openInSpotifyLink" href="{{param1}}" rel="noopener"><button id="spotify-button">Open in Spotify 🎵</button></a>
             <div class="vote-buttons">
-                <button class="vote-button">👍</button>
-                <button class="vote-button">👎</button>
+                <button id="upVoteButton" class="vote-button">👍</button>
+                <button id="downVoteButton" class="vote-button">👎</button>
             </div>
+        </div>`,
+    },
+    {
+        shorthand:'form',
+        header:"<span class='emoji'>📩</span> Fill the form to reccomend your playlist!",
+        content:`
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScE0AEVqaUycrTCoVWB0IbQoIdRAbKZPqAHxiYBIngip_QZRw/viewform?embedded=true" width="100%" height="380" frameborder="0" marginheight="0" marginwidth="0">Yükleniyor…</iframe>
+        <br>
+        <div class="modal-buttons">
+            <a target="_blank" href="https://forms.gle/efjcvta5acjizhAg8" rel="noopener"><button>Open as a new tab 🔗</button></a>
         </div>`,
     },
 ]

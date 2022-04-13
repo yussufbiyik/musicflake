@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit {
     notificatonDescription.innerHTML = description;
     if(notification.classList.contains('bottom-hidden')) notification.classList.toggle('bottom-hidden');
     setTimeout(() => {
+      if(notification?.classList.contains('bottom-hidden')) return;
       this.closeNotification()
     }, 3000);
   }
@@ -59,7 +60,7 @@ export class HomeComponent implements OnInit {
     if(parameters.headerParameters.length>0){
       var headingCounter:number = 0
       parameters.headerParameters.forEach((headingParameter:string) => {
-        let currentParameter = `{{param${headingCounter}}}`;
+        let currentParameter = new RegExp(`{{param${headingCounter}}}`, 'g');
         modal.header = modal.header.replace(currentParameter, headingParameter)
         headingCounter++
       });
@@ -67,7 +68,7 @@ export class HomeComponent implements OnInit {
     if(parameters.contentParameters.length>0){
       var contentCounter:number = 0
       parameters.contentParameters.forEach((contentParameter:string) => {
-        let currentParameter = `{{param${contentCounter}}}`;
+        let currentParameter = new RegExp(`{{param${contentCounter}}}`, 'g');
         modal.content = modal.content.replace(currentParameter, contentParameter)
         contentCounter++
       });
@@ -107,6 +108,18 @@ export class HomeComponent implements OnInit {
       spotifyButton.addEventListener('click', () => {
         this.openNotification('Playlist is Opened!', 'Check your Spotify app.')
       })
+      document.getElementById("upVoteButton")?.addEventListener('click', () => {
+        let openInSpotifyLink:any = document.getElementById('openInSpotifyLink')
+        if (!openInSpotifyLink) return;
+        openInSpotifyLink = openInSpotifyLink.getAttribute('href')
+        this.votePlaylist('up', openInSpotifyLink)
+      })
+      document.getElementById("downVoteButton")?.addEventListener('click', () => {
+        let openInSpotifyLink:any = document.getElementById('openInSpotifyLink')
+        if (!openInSpotifyLink) return;
+        openInSpotifyLink = openInSpotifyLink.getAttribute('href')
+        this.votePlaylist('down', openInSpotifyLink)
+      })
     }
   }
 
@@ -144,9 +157,38 @@ export class HomeComponent implements OnInit {
         var currentTimeWeatherIndex = resp.hourly.time.findIndex((time:string) => time === currentTime)
         var currentTimeWeathercode = resp.hourly.weathercode[currentTimeWeatherIndex]
         var recommendedPlaylist = this.recommendPlaylistBasedOffWeathercode(currentTimeWeathercode);
+        if(!recommendedPlaylist) {
+          this.openNotification("Cannot find any playlists for your weather conditions 😥", "You can fix this by sending us a playlist that you think is suitable for this weather."); 
+          return;
+        }
         var playlistEmbedSource = this.createSpotifyEmbedUrl(recommendedPlaylist.url);
         this.openModal('playlist', {headerParameters:[], contentParameters:[playlistEmbedSource, recommendedPlaylist.uri]})
       })
     })
+  }
+
+  votePlaylist(vote:'up' | 'down', playlistEmbedUrl:string){
+    var votedPlaylist;
+    switch (vote) {
+      case 'up':
+        votedPlaylist = Playlists.find((Playlist) => Playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
+        if(votedPlaylist!.score > 0 && votedPlaylist!.score < 100){
+          votedPlaylist!.score += 1
+          //! VERİTABANINI GÜNCELLE
+          console.log(votedPlaylist?.score)
+        }
+        break;
+      case 'down':
+        votedPlaylist = Playlists.find((Playlist) => Playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
+        if(votedPlaylist!.score > 0 && votedPlaylist!.score < 100){
+          votedPlaylist!.score -= 1
+          //! VERİTABANINI GÜNCELLE
+          console.log(votedPlaylist?.score)
+        }
+        break;
+      default:
+        this.openNotification("Vote is not valid", "Please report if you think this is an error.")
+        break;
+    }
   }
 }
