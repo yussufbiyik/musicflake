@@ -2,9 +2,6 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Component, OnInit } from '@angular/core';
 import { Modals } from '../datasources/modal.datasource';
 import { Modal } from '../classes/modal';
-//import { Playlists } from '../datasources/playlists.datasource';
-import { Observable, throwError } from "rxjs";
-import { catchError, map, tap } from "rxjs/operators";
 import { Playlist } from '../classes/playlist';
 import { PlaylistsService } from '../services/playlists.service'
 @Component({
