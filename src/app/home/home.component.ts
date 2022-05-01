@@ -1,22 +1,26 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Modals } from '../datasources/modal.datasource';
 import { Modal } from '../classes/modal';
-import { Playlists } from '../datasources/playlists.datasource';
+//import { Playlists } from '../datasources/playlists.datasource';
+import { Observable, throwError } from "rxjs";
+import { catchError, map, tap } from "rxjs/operators";
 import { Playlist } from '../classes/playlist';
-
+import { PlaylistsService } from '../services/playlists.service'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  providers: [PlaylistsService]
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private playlistsService: PlaylistsService) { }
 
+  Playlists: Playlist[] = this.playlistsService.getPlaylists()
   ngOnInit(): void {
   }
-
+  
   openNotification(header: string, description: string){
     var notification = document.getElementById('notification')
     var notificatonHeader = document.getElementById('notification-header')
@@ -132,7 +136,7 @@ export class HomeComponent implements OnInit {
 
   recommendPlaylistBasedOffWeathercode(weathercode: Number){
     // Search for playlists with a compatible weathercode with users
-    let playlistMatches: Array<Playlist> = Playlists.filter((playlist:Playlist)=> playlist.weathercodes.includes(weathercode))
+    let playlistMatches: Array<Playlist> = this.Playlists.filter((playlist:Playlist)=> playlist.weathercodes.includes(weathercode))
     // Select a random playlist from playlistMatches
     let recommendation: Playlist = playlistMatches[Math.floor(Math.random()*playlistMatches.length)]
     return recommendation
@@ -171,7 +175,7 @@ export class HomeComponent implements OnInit {
     var votedPlaylist;
     switch (vote) {
       case 'up':
-        votedPlaylist = Playlists.find((Playlist) => Playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
+        votedPlaylist = this.Playlists.find((Playlist) => Playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
         if(votedPlaylist!.score > 0 && votedPlaylist!.score < 100){
           votedPlaylist!.score += 1
           //! VERİTABANINI GÜNCELLE
@@ -179,7 +183,7 @@ export class HomeComponent implements OnInit {
         }
         break;
       case 'down':
-        votedPlaylist = Playlists.find((Playlist) => Playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
+        votedPlaylist = this.Playlists.find((Playlist) => Playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
         if(votedPlaylist!.score > 0 && votedPlaylist!.score < 100){
           votedPlaylist!.score -= 1
           //! VERİTABANINI GÜNCELLE
