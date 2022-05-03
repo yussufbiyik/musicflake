@@ -4,6 +4,7 @@ import { Modals } from '../datasources/modal.datasource';
 import { Modal } from '../classes/modal';
 import { Playlist } from '../classes/playlist';
 import { PlaylistsService } from '../services/playlists.service'
+import { Keyplaylist } from '../classes/keyplaylist';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private http: HttpClient, private playlistsService: PlaylistsService) { }
 
-  Playlists: Playlist[] = this.playlistsService.getPlaylists()
+  Playlists: Keyplaylist[] = this.playlistsService.getPlaylists()
   ngOnInit(): void {
   }
   
@@ -133,9 +134,9 @@ export class HomeComponent implements OnInit {
 
   recommendPlaylistBasedOffWeathercode(weathercode: Number){
     // Search for playlists with a compatible weathercode with users
-    let playlistMatches: Array<Playlist> = this.Playlists.filter((playlist:Playlist)=> playlist.weathercodes.includes(weathercode))
+    let playlistMatches: Keyplaylist[] = this.Playlists.filter((keyplaylist:Keyplaylist)=> keyplaylist.playlist.weathercodes.includes(weathercode))
     // Select a random playlist from playlistMatches
-    let recommendation: Playlist = playlistMatches[Math.floor(Math.random()*playlistMatches.length)]
+    let recommendation: Playlist = playlistMatches[Math.floor(Math.random()*playlistMatches.length)].playlist
     return recommendation
   }
 
@@ -172,19 +173,19 @@ export class HomeComponent implements OnInit {
     var votedPlaylist;
     switch (vote) {
       case 'up':
-        votedPlaylist = this.Playlists.find((Playlist) => Playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
-        if(votedPlaylist!.score > 0 && votedPlaylist!.score < 100){
-          votedPlaylist!.score += 1
+        votedPlaylist = this.Playlists.find((Playlist) => Playlist.playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
+        if(votedPlaylist!.playlist.score > 0 && votedPlaylist!.playlist.score < 100){
+          votedPlaylist!.playlist.score += 1
           //! VERİTABANINI GÜNCELLE
-          console.log(votedPlaylist?.score)
+          console.log(votedPlaylist!.playlist.score)
         }
         break;
       case 'down':
-        votedPlaylist = this.Playlists.find((Playlist) => Playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
-        if(votedPlaylist!.score > 0 && votedPlaylist!.score < 100){
-          votedPlaylist!.score -= 1
+        votedPlaylist = this.Playlists.find((Playlist) => Playlist.playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
+        if(votedPlaylist!.playlist.score > 0 && votedPlaylist!.playlist.score < 100){
+          votedPlaylist!.playlist.score -= 1
           //! VERİTABANINI GÜNCELLE
-          console.log(votedPlaylist?.score)
+          console.log(votedPlaylist!.playlist.score)
         }
         break;
       default:
