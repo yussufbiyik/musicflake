@@ -34,12 +34,15 @@ export class PlaylistsService {
     return this.playlists;
   }
 
-  // votePlaylist(playlist: Playlist, upVote: boolean){
-  //   if(this.getPlaylists().find((searcehPlaylist:Playlist) => searcehPlaylist.uri === playlist.uri)){
-  //     var selectedPlaylist = this.getPlaylists().find((searcehPlaylist:Playlist) => searcehPlaylist.uri === playlist.uri);
-  //     this.http.post<Playlist>(`${this.firebaseURL}/playlists/uuid_here.json`, selectedPlaylist).subscribe((resp:any) => console.log(resp))
-  //   }
-  // }
+  dbVotePlaylist(playlist: Playlist): boolean{
+    var selectedPlaylist = this.getPlaylists().find((searcehPlaylist:Keyplaylist) => searcehPlaylist.playlist.uri === playlist.uri);
+    if(typeof selectedPlaylist == undefined){ 
+      console.error("Can't find playlist in database\n" + playlist)
+      return false
+    }
+    this.http.put<Playlist>(`${this.firebaseURL}/playlists/${selectedPlaylist?.key}.json`, playlist).subscribe((resp:any) => {})
+    return true
+  }
   
   /* 
     postPlaylists(){

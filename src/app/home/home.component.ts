@@ -114,13 +114,13 @@ export class HomeComponent implements OnInit {
         let openInSpotifyLink:any = document.getElementById('openInSpotifyLink')
         if (!openInSpotifyLink) return;
         openInSpotifyLink = openInSpotifyLink.getAttribute('href')
-        this.votePlaylist('up', openInSpotifyLink)
+        this.votePlaylist(true, openInSpotifyLink)
       })
       document.getElementById("downVoteButton")?.addEventListener('click', () => {
         let openInSpotifyLink:any = document.getElementById('openInSpotifyLink')
         if (!openInSpotifyLink) return;
         openInSpotifyLink = openInSpotifyLink.getAttribute('href')
-        this.votePlaylist('down', openInSpotifyLink)
+        this.votePlaylist(false, openInSpotifyLink)
       })
     }
   }
@@ -169,23 +169,21 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  votePlaylist(vote:'up' | 'down', playlistEmbedUrl:string){
+  votePlaylist(vote: boolean, playlistEmbedUrl:string){
     var votedPlaylist;
     switch (vote) {
-      case 'up':
+      case true:
         votedPlaylist = this.Playlists.find((Playlist) => Playlist.playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
         if(votedPlaylist!.playlist.score > 0 && votedPlaylist!.playlist.score < 100){
           votedPlaylist!.playlist.score += 1
-          //! VERİTABANINI GÜNCELLE
-          console.log(votedPlaylist!.playlist.score)
+          this.playlistsService.dbVotePlaylist(votedPlaylist!.playlist)
         }
         break;
-      case 'down':
+      case false:
         votedPlaylist = this.Playlists.find((Playlist) => Playlist.playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
         if(votedPlaylist!.playlist.score > 0 && votedPlaylist!.playlist.score < 100){
           votedPlaylist!.playlist.score -= 1
-          //! VERİTABANINI GÜNCELLE
-          console.log(votedPlaylist!.playlist.score)
+          this.playlistsService.dbVotePlaylist(votedPlaylist!.playlist)
         }
         break;
       default:
