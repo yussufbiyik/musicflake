@@ -41,6 +41,7 @@ export class PlaylistsService {
       return false
     }
     this.http.put<Playlist>(`${this.firebaseURL}/playlists/${selectedPlaylist?.key}.json`, playlist).subscribe((resp:any) => {})
+    console.log(`${this.firebaseURL}/playlists/${selectedPlaylist?.key}.json`)
     return true
   }
   

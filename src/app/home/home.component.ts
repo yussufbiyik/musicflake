@@ -176,14 +176,20 @@ export class HomeComponent implements OnInit {
         votedPlaylist = this.Playlists.find((Playlist) => Playlist.playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
         if(votedPlaylist!.playlist.score > 0 && votedPlaylist!.playlist.score < 100){
           votedPlaylist!.playlist.score += 1
-          this.playlistsService.dbVotePlaylist(votedPlaylist!.playlist)
+          if(this.playlistsService.dbVotePlaylist(votedPlaylist!.playlist) === false){
+            this.openNotification("Can't find playlist in database", "Please report if you think this is an error.")
+          }
+          this.openNotification("Successfully voted the playlist", "")
         }
         break;
       case false:
         votedPlaylist = this.Playlists.find((Playlist) => Playlist.playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
         if(votedPlaylist!.playlist.score > 0 && votedPlaylist!.playlist.score < 100){
           votedPlaylist!.playlist.score -= 1
-          this.playlistsService.dbVotePlaylist(votedPlaylist!.playlist)
+          if(this.playlistsService.dbVotePlaylist(votedPlaylist!.playlist) === false){
+            this.openNotification("Can't find playlist in database", "Please report if you think this is an error.")
+          }
+          this.openNotification("Successfully voted the playlist", "")
         }
         break;
       default:
