@@ -14,13 +14,6 @@ export class PlaylistsService {
   constructor(private http: HttpClient) { }
 
   getPlaylists():Keyplaylist[] {
-    // this.http.get<Playlist[]>(`${this.firebaseURL}/playlists.json`).subscribe((resp: object) => {
-    //   Array.from(Object.values(resp)).forEach((playlist: any) => {
-    //     this.playlists.push(playlist)
-    //   })
-    // })
-    // return this.playlists;
-
     this.http.get<object[]>(`${this.firebaseURL}/playlists.json`).subscribe((resp: object) => {
       var i = 0;
       var keys: string[] = Array.from(Object.keys(resp));
