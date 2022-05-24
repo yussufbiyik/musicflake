@@ -1,10 +1,16 @@
+<!-- 
+    TODO
+    * https://web.dev/button-name/?utm_source=lighthouse&utm_medium=devtools follow the guide to make the page way more accessible
+
+-->
+
 <section id="header" class="header section-grid-row">
     <h1><span class="emoji">🎧</span> Musicflake</h1>
     <span>Listen to music based on weather conditions of your area!</span>
 </section>
 
 <section id="options" class="options section-grid-row">
-    <h1>Let me suggest a playlist!</h1>
+    <h2>Let me suggest a playlist!</h2>
     <span>Playlists are suggested based on weather conditions of your area so you will see something that says <u>"Allow Location"</u> you can get suggestions only if you allow this app to access your location.</span>
     <div class="buttons grid-row">
         <button (click)="suggestPlaylist()" class="default-button"><span class="emoji">🎵</span> Get your recommendation!</button>
@@ -23,6 +29,14 @@
     </button>
     <h1 id="modal-header" class="modal-header"></h1>
     <p id="modal-content" class="modal-content"></p>
+    <ng-hcaptcha 
+        (verify)="test($event)"
+        (expired)="test($event)"
+        (error)="test($event)"
+        class="invisible"
+        id="captcha"
+    >
+    </ng-hcaptcha>
 </section>
 
 <section (click)="closeNotification()" id="notification" class="notification bottom-hidden">

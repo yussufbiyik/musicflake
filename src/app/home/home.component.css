@@ -108,8 +108,16 @@
 }
 .modal-content::ng-deep .modal-buttons{
     display: grid;
-    grid-auto-flow: column;
+    row-gap: 10px;
+    column-gap: 10px;
+    grid-auto-flow: dense;
     justify-content: space-between;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.modal-content::ng-deep .vote-buttons{
+    display: grid;
+    justify-items: end;
 }
 
 .hidden{

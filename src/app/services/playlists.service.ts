@@ -2,13 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Keyplaylist } from '../classes/keyplaylist';
 import { Playlist } from '../classes/playlist';
-
 @Injectable({
   providedIn: 'root'
 })
 export class PlaylistsService {
 
-  firebaseURL = "https://musicflake-3f0a8-default-rtdb.firebaseio.com/"
+  firebaseURL = "https://musicflake-3f0a8-default-rtdb.firebaseio.com/";
 
   public playlists: Keyplaylist[] = [];
   constructor(private http: HttpClient) { }

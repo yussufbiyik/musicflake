@@ -5,18 +5,26 @@ import { Modal } from '../classes/modal';
 import { Playlist } from '../classes/playlist';
 import { PlaylistsService } from '../services/playlists.service'
 import { Keyplaylist } from '../classes/keyplaylist';
+import { NgHcaptchaComponent, NgHcaptchaModule } from 'ng-hcaptcha';
+import { createComponent } from '@angular/compiler/src/core';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   providers: [PlaylistsService]
 })
+
 export class HomeComponent implements OnInit {
 
   constructor(private http: HttpClient, private playlistsService: PlaylistsService) { }
 
   Playlists: Keyplaylist[] = this.playlistsService.getPlaylists()
   ngOnInit(): void {
+  } 
+
+  test(event :any){
+    console.log(event)
   }
   
   openNotification(header: string, description: string){
@@ -81,32 +89,30 @@ export class HomeComponent implements OnInit {
   openModal(modalShorthand:string, parameters?:Object){
     var documentModal = document.getElementById('modal')
     var backdropElement = document.getElementById('backdrop')
+    var captcha = document.getElementById('captcha');
     // Clone the object to keep the original object the way it is so that it does not get modified and cause the parameters to disappear and make the same playlist show up everytime
     var modal = Object.assign({}, Modals.find((modal:Modal)=> modal.shorthand === modalShorthand))
     if(!modal) {
-      this.openModal('error', {
-        headerParameters:[],
-        contentParameters:[`<code>Error:<br>Cannot find modal with specified shorthand (${modalShorthand})</code>`]
-      }); 
+      this.openNotification('Error', `Check console for more information:<br><code>Error:<br>Cannot find modal with specified shorthand (${modalShorthand})</code>`); 
       return;
     }
     var modalHeader = document.getElementById('modal-header')
     var modalContent = document.getElementById('modal-content')
     if(!modalHeader || !modalContent || !documentModal || !backdropElement) {
-      this.openModal('error', {
-        headerParameters:[],
-        contentParameters:[`<code>Error:<br>One or more of the following elements does not exist:<br>modalHeader, modalContent, documentModal, backdropElement</code>`]
-      }); 
+      this.openNotification('Error', `Check console for more information:<br><code>One or more of the following elements does not exist:<br>modalHeader, modalContent, documentModal, backdropElement</code>`); 
       return;
     } 
     if(parameters) modal = this.modifyModalWithParameters(modal, parameters)
     modalHeader.innerHTML = modal.header
     modalContent.innerHTML = modal.content
+    
     documentModal.classList.toggle('hidden')
     backdropElement.classList.toggle('invisible')
 
     var spotifyButton = document.getElementById('spotify-button')
     if(spotifyButton){
+      if(captcha?.classList.contains("invisible")) captcha?.classList.toggle("invisible");
+
       spotifyButton.addEventListener('click', () => {
         this.openNotification('Playlist is Opened!', 'Check your Spotify app.')
       })
@@ -130,6 +136,9 @@ export class HomeComponent implements OnInit {
     var backdropElement = document.getElementById('backdrop')
     documentModal?.classList.toggle('hidden')
     backdropElement?.classList.toggle('invisible')
+    
+    var captcha = document.getElementById('captcha');
+    if(!captcha?.classList.contains("invisible")) captcha?.classList.toggle("invisible");
   }
 
   recommendPlaylistBasedOffWeathercode(weathercode: Number){
@@ -158,6 +167,7 @@ export class HomeComponent implements OnInit {
         var currentTime = `${new Date().toISOString().substring(0,13)}:00`
         var currentTimeWeatherIndex = resp.hourly.time.findIndex((time:string) => time === currentTime)
         var currentTimeWeathercode = resp.hourly.weathercode[currentTimeWeatherIndex]
+        //console.log(currentTimeWeathercode)
         var recommendedPlaylist = this.recommendPlaylistBasedOffWeathercode(currentTimeWeathercode);
         if(!recommendedPlaylist) {
           this.openNotification("Cannot find any playlists for your weather conditions 😥", "You can fix this by sending us a playlist that you think is suitable for this weather."); 
@@ -198,3 +208,5 @@ export class HomeComponent implements OnInit {
     }
   }
 }
+
+

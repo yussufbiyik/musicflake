@@ -20,8 +20,10 @@ export const Modals:Array<Modal> = [
         <div class="modal-buttons">
             <a id="openInSpotifyLink" href="{{param1}}" rel="noopener"><button id="spotify-button">Open in Spotify 🎵</button></a>
             <div class="vote-buttons">
-                <button id="upVoteButton" class="vote-button">👍</button>
-                <button id="downVoteButton" class="vote-button">👎</button>
+                <div>
+                    <button id="upVoteButton" class="vote-button">👍</button>
+                    <button id="downVoteButton" class="vote-button">👎</button>
+                </div>
             </div>
         </div>`,
     },
