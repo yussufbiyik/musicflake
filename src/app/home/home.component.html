@@ -17,6 +17,7 @@
         <button (click)="openModal('faq')" class="default-button"><span class="emoji">🤔</span> How does it work?</button>
         <button (click)="openModal('form')" class="default-button" rel="noopener" target="_blank"><span class="emoji">📩</span>  Send your playlists!</button>
         <a class="link-btn" href="https://github.com/yussufbiyik" rel="noopener" target="_blank"><button class="default-button"><span class="emoji">👨‍💻</span>  Visit My GitHub</button></a>
+        <button (click)="openModal('credits')" class="default-button"><span class="emoji">📜</span> Credits</button>
     </div>
 </section>
 
@@ -31,8 +32,8 @@
     <p id="modal-content" class="modal-content"></p>
     <ng-hcaptcha 
         (verify)="test($event)"
-        (expired)="test($event)"
-        (error)="test($event)"
+        (expired)="openNotification('Captcha Expired', $event)"
+        (error)="openNotification('Captcha Error', $event)"
         class="invisible"
         id="captcha"
     >

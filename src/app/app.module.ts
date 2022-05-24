@@ -17,7 +17,7 @@ import { NgHcaptchaModule } from 'ng-hcaptcha';
     HttpClientModule,
     AppRoutingModule,
     NgHcaptchaModule.forRoot({
-      siteKey: '7659be1f-ad6c-4449-8955-a0650c425485',
+      siteKey: '10000000-ffff-ffff-ffff-000000000001', //Test: 10000000-ffff-ffff-ffff-000000000001 Real: 7659be1f-ad6c-4449-8955-a0650c425485
     })
   ],
   providers: [HttpClientModule],
