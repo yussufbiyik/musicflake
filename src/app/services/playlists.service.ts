@@ -14,8 +14,8 @@ export class PlaylistsService {
 
   getPlaylists():Keyplaylist[] {
     this.http.get<object[]>(`${this.firebaseURL}/playlists.json`).subscribe((resp: object) => {
-      Object.entries(resp).map(element => {
-        this.playlists.push({"key": element[0], "playlist":element[1]})
+      Object.entries(resp).map(entry => {
+        this.playlists.push({"key": entry[0], "playlist":entry[1]})
       });
     })
     return this.playlists;
