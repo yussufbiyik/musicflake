@@ -117,8 +117,9 @@ export class HomeComponent implements OnInit {
       // Captcha only needs to appear if the modal shorthand is playlist so there is no need to add any other if statement
       if(captcha?.classList.contains("invisible")) captcha?.classList.toggle("invisible");
 
-      // Take the playlist link from the a that that wraps spotifyButton
-      var openInSpotifyLink:any = () => { if(document.getElementById('openInSpotifyLink')) document.getElementById('openInSpotifyLink')?.getAttribute('href')}
+      // Take the playlist link from the "a" tag that that wraps spotifyButton
+      var openInSpotifyLink:any;
+      if(document.getElementById('openInSpotifyLink')) openInSpotifyLink = document.getElementById('openInSpotifyLink')?.getAttribute('href');
       
       // Show a notification to let the user know that the playlist is opened.
       spotifyButton.addEventListener('click', () => this.openNotification('Playlist is Opened!', 'Check your Spotify app.'))
@@ -184,6 +185,7 @@ export class HomeComponent implements OnInit {
 
   votePlaylist(vote: boolean, playlistEmbedUrl:string){
     var votedPlaylist;
+    console.log(playlistEmbedUrl)
     votedPlaylist = this.Playlists.find((Playlist) => Playlist.playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
     switch (vote) {
       // Upvote
@@ -203,5 +205,3 @@ export class HomeComponent implements OnInit {
     this.openNotification("Successfully voted the playlist", "")
   }
 }
-
-

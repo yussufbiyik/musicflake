@@ -14,20 +14,15 @@ export class PlaylistsService {
 
   getPlaylists():Keyplaylist[] {
     this.http.get<object[]>(`${this.firebaseURL}/playlists.json`).subscribe((resp: object) => {
-      var i = 0;
-      var keys: string[] = Array.from(Object.keys(resp));
-
-      Array.from(Object.values(resp)).forEach((playlist: Playlist) => {
-        var currentKey = keys[i]
-        this.playlists.push({"key":currentKey,"playlist":playlist})
-        i++;
-      })
+      Object.entries(resp).map(element => {
+        this.playlists.push({"key": element[0], "playlist":element[1]})
+      });
     })
     return this.playlists;
   }
 
   dbVotePlaylist(playlist: Playlist): boolean{
-    var selectedPlaylist = this.getPlaylists().find((searcehPlaylist:Keyplaylist) => searcehPlaylist.playlist.uri === playlist.uri);
+    var selectedPlaylist = this.playlists.find((searcehPlaylist:Keyplaylist) => searcehPlaylist.playlist.uri === playlist.uri);
     if(typeof selectedPlaylist == undefined){ 
       console.error("Can't find playlist in database\n" + playlist)
       return false
