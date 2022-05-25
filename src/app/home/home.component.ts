@@ -19,10 +19,13 @@ export class HomeComponent implements OnInit {
 
   Playlists: Keyplaylist[] = this.playlistsService.getPlaylists()
   ngOnInit(): void {
-  } 
+  }
+  
+  verified:boolean = false;
 
-  test(event :any){
-    console.log(event)
+  verifyCaptcha(event :any){
+    if(!(event.type == "verified" && event.isTrusted == true)) return
+    this.verified = true
   }
   
   openNotification(header: string, description: string){
@@ -184,6 +187,10 @@ export class HomeComponent implements OnInit {
   }
 
   votePlaylist(vote: boolean, playlistEmbedUrl:string){
+    if(this.verified == false){
+      this.openNotification("Please confirm that you are a human.","Complete the captcha.")
+      return
+    }
     var votedPlaylist;
     console.log(playlistEmbedUrl)
     votedPlaylist = this.Playlists.find((Playlist) => Playlist.playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
@@ -203,5 +210,6 @@ export class HomeComponent implements OnInit {
     }
     if(this.playlistsService.dbVotePlaylist(votedPlaylist!.playlist) === false) this.openNotification("Can't find playlist in database", "Please report if you think this is an error.")
     this.openNotification("Successfully voted the playlist", "")
+    this.verified = false
   }
 }
