@@ -25,16 +25,9 @@ export class PlaylistsService {
       console.error("Can't find playlist in database\n" + playlist)
       return false
     }
+    
     this.http.put<Playlist>(`${this.firebaseURL}/playlists/${selectedPlaylist?.key}.json`, playlist).subscribe((resp:any) => {})
     console.log(`${this.firebaseURL}/playlists/${selectedPlaylist?.key}.json`)
     return true
   }
-  
-  /* 
-    postPlaylists(){
-      Playlists.forEach((selectedPlaylist:Playlist) => {
-        return this.http.post<Playlist>(`${this.firebaseURL}/playlists.json`, selectedPlaylist).subscribe((resp) => console.log(resp))
-      })
-    }
-  */
 }
