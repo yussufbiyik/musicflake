@@ -5,6 +5,7 @@ import { Modal } from '../classes/modal';
 import { Playlist } from '../classes/playlist';
 import { PlaylistsService } from '../services/playlists.service'
 import { Keyplaylist } from '../classes/keyplaylist';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,15 @@ import { Keyplaylist } from '../classes/keyplaylist';
 
 export class HomeComponent implements OnInit {
 
-  constructor(private http: HttpClient, private playlistsService: PlaylistsService) { }
+  constructor(private http: HttpClient, private playlistsService: PlaylistsService, private meta: Meta) {
+
+    this.meta.addTags([
+      { name: 'description', content: 'Musicflake recommends music based on your weather conditions.' },
+      { name: 'keywords', content: 'musicflake, weather, music, weather based song recommendation, music recommendation, playlists, top lists' },
+      { name: 'author', content: 'Yusuf Bıyık' }  
+    ]);  
+
+  }
 
   Playlists: Keyplaylist[] = this.playlistsService.getPlaylists()
   ngOnInit(): void {
