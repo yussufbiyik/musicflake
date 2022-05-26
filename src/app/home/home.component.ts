@@ -128,7 +128,6 @@ export class HomeComponent implements OnInit {
     if(spotifyButton){
       // Captcha only needs to appear if the modal shorthand is playlist so there is no need to add any other if statement
       if(captcha?.classList.contains("invisible")) captcha?.classList.toggle("invisible");
-
       // Take the playlist link from the "a" tag that that wraps spotifyButton
       var openInSpotifyLink:any;
       if(document.getElementById('openInSpotifyLink')) openInSpotifyLink = document.getElementById('openInSpotifyLink')?.getAttribute('href');
@@ -201,7 +200,7 @@ export class HomeComponent implements OnInit {
       return
     }
     var votedPlaylist;
-    console.log(playlistEmbedUrl)
+    // console.log(playlistEmbedUrl)
     votedPlaylist = this.Playlists.find((Playlist) => Playlist.playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
     switch (vote) {
       // Upvote

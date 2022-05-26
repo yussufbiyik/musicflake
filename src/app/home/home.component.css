@@ -44,7 +44,7 @@
 	transition-duration: .4s;
 
     background   : var(--bg-color);
-    box-shadow: 0 0 15px -8px black;
+    box-shadow: 0 0 15px -5px black;
 }
 
 .notification-header, .notification-description{
@@ -79,10 +79,7 @@
 
     padding: 20px;
 
-    display       : grid;
-    row-gap       : 10px;
     justify-items : left;
-    grid-auto-flow: row;
 
     overflow-y: auto;
 }
@@ -107,9 +104,6 @@
     border-radius: .5pc;
 }
 .modal-content::ng-deep .modal-buttons{
-    display: grid;
-    row-gap: 10px;
-    column-gap: 10px;
     grid-auto-flow: dense;
     justify-content: space-between;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

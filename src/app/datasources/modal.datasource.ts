@@ -24,7 +24,7 @@ export const Modals:Array<Modal> = [
         content:`
         <iframe src="{{param0}}" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         <br>
-        <div class="modal-buttons">
+        <div class="grid-row grid-columns modal-buttons">
             <a id="openInSpotifyLink" href="{{param1}}" rel="noopener"><button id="spotify-button">Open in Spotify 🎵</button></a>
             <div class="vote-buttons">
                 <div>
