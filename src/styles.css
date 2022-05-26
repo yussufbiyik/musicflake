@@ -12,12 +12,12 @@ html {
 	--bg-color:#F5F5F5;
 	--text-color:#070707;
 	--button-color:#ffffff;
-	--button-outline-color:#E1E0E0;
+	--button-outline-color:rgba(255, 255, 255, 0);
 }
 
 body{
 	color: var(--text-color);
-	background: var(--bg-color);
+	background: url('https://pluviophile.net/wp-content/uploads/wet-empty-road-wallpaper.jpg');
 }
 
 *{
@@ -49,4 +49,16 @@ h1,h2,h3,h4,h5,h6{
 span{
 	display: inline-block;
 	max-width: 1000px;
+}
+
+.glass, .nontransparent-glass{
+	/* From https://css.glass */
+	background: rgba(255, 255, 255, 0.3) !important;
+	backdrop-filter: blur(10px) !important;
+	-webkit-backdrop-filter: blur(10px) !important;
+}
+
+.nontransparent-glass{
+	/* From https://css.glass */
+	background: rgba(255, 255, 255, 0.5) !important;
 }

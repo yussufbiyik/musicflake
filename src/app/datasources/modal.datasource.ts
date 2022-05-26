@@ -10,7 +10,8 @@ export const Modals:Array<Modal> = [
         shorthand:'credits',
         header:"<span class='emoji'>📜</span> Credits",
         content:`<ul>
-        <li><a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a></li>
+            <li><a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a></li>
+            <li><a href="https://css.glass">Glass effects by css.glass</a></li>
         </ul>`,
     },
     {
@@ -25,11 +26,11 @@ export const Modals:Array<Modal> = [
         <iframe src="{{param0}}" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         <br>
         <div class="grid-row grid-columns modal-buttons">
-            <a id="openInSpotifyLink" href="{{param1}}" rel="noopener"><button id="spotify-button">Open in Spotify 🎵</button></a>
+            <a id="openInSpotifyLink" href="{{param1}}" rel="noopener"><button class="glass" id="spotify-button">Open in Spotify 🎵</button></a>
             <div class="vote-buttons">
                 <div>
-                    <button id="upVoteButton" class="vote-button">👍</button>
-                    <button id="downVoteButton" class="vote-button">👎</button>
+                    <button id="upVoteButton" class="glass vote-button">👍</button>
+                    <button id="downVoteButton" class="glass vote-button">👎</button>
                 </div>
             </div>
         </div>`,
