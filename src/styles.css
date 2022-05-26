@@ -17,7 +17,8 @@ html {
 
 body{
 	color: var(--text-color);
-	background: url('https://pluviophile.net/wp-content/uploads/wet-empty-road-wallpaper.jpg');
+	background: url('https://images.pexels.com/photos/4031126/pexels-photo-4031126.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+	background-size: cover;
 }
 
 *{
