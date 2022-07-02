@@ -4,6 +4,7 @@ import { Modals } from '../datasources/modal.datasource';
 import { Modal } from '../classes/modal';
 import { Playlist } from '../classes/playlist';
 import { PlaylistsService } from '../services/playlists.service'
+import { WeatherService } from '../services/weather.service';
 import { Keyplaylist } from '../classes/keyplaylist';
 import { Meta } from '@angular/platform-browser';
 
@@ -16,7 +17,7 @@ import { Meta } from '@angular/platform-browser';
 
 export class HomeComponent implements OnInit {
 
-  constructor(private http: HttpClient, private playlistsService: PlaylistsService, private meta: Meta) {
+  constructor(private http: HttpClient, private playlistsService: PlaylistsService, private meta: Meta, private weatherService: WeatherService) {
 
     this.meta.addTags([
       { name: 'description', content: 'Musicflake recommends music based on your weather conditions.' },
@@ -98,21 +99,22 @@ export class HomeComponent implements OnInit {
   }
   
   openModal(modalShorthand:string, parameters?:Object){
-    var documentModal = document.getElementById('modal')
-    var backdropElement = document.getElementById('backdrop')
-    var captcha = document.getElementById('captcha');
+    let documentModal = document.getElementById('modal')
+    let backdropElement = document.getElementById('backdrop')
+    let captcha = document.getElementById('captcha');
 
     // Clone the object to keep the original object the way it is so that it does not get modified and cause the parameters to disappear and make the same playlist show up everytime
-    var modal = Object.assign({}, Modals.find((modal:Modal)=> modal.shorthand === modalShorthand))
+    let modal = Object.assign({}, Modals.find((modal:Modal)=> modal.shorthand === modalShorthand))
     if(!modal) {
       this.openNotification('Error', `Check console for more information:<br><code>Error:<br>Cannot find modal with specified shorthand (${modalShorthand})</code>`); 
       return;
     }
 
-    var modalHeader = document.getElementById('modal-header')
-    var modalContent = document.getElementById('modal-content')
+    let modalHeader = document.getElementById('modal-header')
+    let modalContent = document.getElementById('modal-content')
     if(!modalHeader || !modalContent || !documentModal || !backdropElement) {
-      this.openNotification('Error', `Check console for more information:<br><code>One or more of the following elements does not exist:<br>modalHeader, modalContent, documentModal, backdropElement</code>`); 
+      this.openNotification('Error', `Check console for more information:<br><code>One or more of the following elements does not exist:<br>modalHeader, modalContent, documentModal, backdropElement</code>`);
+      console.error([modalHeader, modalContent, documentModal, backdropElement]) 
       return;
     } 
     if(parameters) modal = this.modifyModalWithParameters(modal, parameters)
@@ -124,12 +126,12 @@ export class HomeComponent implements OnInit {
     backdropElement.classList.toggle('invisible')
 
     // Features specific for playlist modal
-    var spotifyButton = document.getElementById('spotify-button')
+    let spotifyButton = document.getElementById('spotify-button')
     if(spotifyButton){
       // Captcha only needs to appear if the modal shorthand is playlist so there is no need to add any other if statement
       if(captcha?.classList.contains("invisible")) captcha?.classList.toggle("invisible");
       // Take the playlist link from the "a" tag that that wraps spotifyButton
-      var openInSpotifyLink:any;
+      let openInSpotifyLink:any;
       if(document.getElementById('openInSpotifyLink')) openInSpotifyLink = document.getElementById('openInSpotifyLink')?.getAttribute('href');
       
       // Show a notification to let the user know that the playlist is opened.
@@ -149,13 +151,13 @@ export class HomeComponent implements OnInit {
 
   closeModal(){
     // Hide modal
-    var documentModal = document.getElementById('modal')
-    var backdropElement = document.getElementById('backdrop')
+    let documentModal = document.getElementById('modal')
+    let backdropElement = document.getElementById('backdrop')
     documentModal?.classList.toggle('hidden')
     backdropElement?.classList.toggle('invisible')
     
     // Hide captcha
-    var captcha = document.getElementById('captcha');
+    let captcha = document.getElementById('captcha');
     if(!captcha?.classList.contains("invisible")) captcha?.classList.toggle("invisible");
   }
 
@@ -172,26 +174,27 @@ export class HomeComponent implements OnInit {
   }
 
   suggestPlaylist(){
-    if(!navigator.geolocation || !navigator) {
-      this.openNotification('Your browser does not support geolocation 😢', `We need to know your location to reccomend a playlist.`);
+    let weatherCode = this.weatherService.getWeatherCode()
+
+    if(weatherCode === "can't access navigator") {
+      this.openNotification('Your browser does not support geolocation 😢', `We need to know your location to recommend a playlist.`);
+      return
+    }
+
+    if(Number(weatherCode) == NaN){
+      this.openNotification("Unknown error", "Check console for more details"); 
+      console.error(weatherCode)
+      return;
+    } 
+
+    let recommendedPlaylist = this.recommendPlaylistBasedOffWeathercode(Number(weatherCode)); 
+    if(!recommendedPlaylist) {
+      this.openNotification("Cannot find any playlists for your weather conditions 😥", "You can fix this by sending us a playlist that you think is suitable for this weather."); 
       return;
     }
-    navigator.geolocation.getCurrentPosition((position) => {
-      var openmateoApiUrl: string = `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&hourly=temperature_2m,relativehumitidy_2m,weathercode`
-      this.http.get<any>(openmateoApiUrl).subscribe((resp:any) => {
-        var currentTime = `${new Date().toISOString().substring(0,13)}:00`
-        var currentTimeWeatherIndex = resp.hourly.time.findIndex((time:string) => time === currentTime)
-        var currentTimeWeathercode = resp.hourly.weathercode[currentTimeWeatherIndex]
-        // console.log(currentTimeWeathercode)
-        var recommendedPlaylist = this.recommendPlaylistBasedOffWeathercode(currentTimeWeathercode);
-        if(!recommendedPlaylist) {
-          this.openNotification("Cannot find any playlists for your weather conditions 😥", "You can fix this by sending us a playlist that you think is suitable for this weather."); 
-          return;
-        }
-        var playlistEmbedSource = this.createSpotifyEmbedUrl(recommendedPlaylist.url);
-        this.openModal('playlist', {headerParameters:[], contentParameters:[playlistEmbedSource, recommendedPlaylist.uri]})
-      })
-    })
+    
+    let playlistEmbedSource = this.createSpotifyEmbedUrl(recommendedPlaylist.url);
+    this.openModal('playlist', {headerParameters:[], contentParameters:[playlistEmbedSource, recommendedPlaylist.uri]})
   }
 
   votePlaylist(vote: boolean, playlistEmbedUrl:string){
@@ -199,7 +202,7 @@ export class HomeComponent implements OnInit {
       this.openNotification("Please confirm that you are a human.","Complete the captcha.")
       return
     }
-    var votedPlaylist;
+    let votedPlaylist;
     // console.log(playlistEmbedUrl)
     votedPlaylist = this.Playlists.find((Playlist) => Playlist.playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
     switch (vote) {
