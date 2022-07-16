@@ -198,10 +198,10 @@ export class HomeComponent implements OnInit {
   }
 
   votePlaylist(vote: boolean, playlistEmbedUrl:string){
-    if(this.verified == false){
-      this.openNotification("Please confirm that you are a human.","Complete the captcha.")
-      return
-    }
+    // if(this.verified == false){
+    //   this.openNotification("Please confirm that you are a human.","Complete the captcha.")
+    //   return
+    // }
     let votedPlaylist;
     // console.log(playlistEmbedUrl)
     votedPlaylist = this.Playlists.find((Playlist) => Playlist.playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
