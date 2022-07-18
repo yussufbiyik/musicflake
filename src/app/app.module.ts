@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { BackgroundComponent } from './background/background.component';
+// import { BackgroundComponent } from './background/background.component';
 
 // import { environment } from 'src/environments/environment.prod';
 
@@ -13,7 +13,6 @@ import { BackgroundComponent } from './background/background.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    BackgroundComponent
   ],
   imports: [
     BrowserModule,
