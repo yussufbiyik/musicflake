@@ -5,19 +5,44 @@ html {
 	margin: 0;
 	width: 100%;
 	height: 100%;
-	overflow-x: hidden;
 }
 
 :root{
 	--bg-color:#F5F5F5;
 	--text-color:#070707;
 	--button-color:#ffffff;
-	--button-outline-color:#E1E0E0;
+	--button-outline-color:rgba(255, 255, 255, 0);
+	
+    /* Palette */
+    --spring-1:#E8EDDF;
+    --spring-2:#d1dac0;
+    --spring-3:#D6E3C3;
+    --spring-4:#D2E2B9;
+    --spring-5:#C6D8A6;
+
+    --summer-1:#DA7565;
+    --summer-2:#E66A51;
+    --summer-3:#E76346;
+    --summer-4:#EF583A;
+    --summer-5:#ED4E2E;
+    
+    --autumn-1:#F3D7CF;
+    --autumn-2:#FACABB;
+    --autumn-3:#FAC0AC;
+    --autumn-4:#FFB8A2;
+    --autumn-5:#FFA98F;
+
+    --winter-1:#d9e2f3;
+    --winter-2:#D7E3FC;
+    --winter-3:#CCDBFD;
+    --winter-4:#C1D3FE;
+    --winter-5:#ABC4FF;
+
+    --ground:#7eaabe;
 }
 
 body{
 	color: var(--text-color);
-	background: var(--bg-color);
 }
 
 *{
@@ -49,4 +74,16 @@ h1,h2,h3,h4,h5,h6{
 span{
 	display: inline-block;
 	max-width: 1000px;
+}
+
+.glass, .nontransparent-glass{
+	/* From https://css.glass */
+	background: rgba(255, 255, 255, 0.3) !important;
+	backdrop-filter: blur(10px) !important;
+	-webkit-backdrop-filter: blur(10px) !important;
+}
+
+.nontransparent-glass{
+	/* From https://css.glass */
+	background: rgba(255, 255, 255, 0.5) !important;
 }

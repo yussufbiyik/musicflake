@@ -1,0 +1,82 @@
+.gradientbg{
+    background: var(--winter-1);
+    background: linear-gradient(0deg, var(--winter-1) 0%, var(--winter-1) 14.9%, var(--winter-2) 15%, var(--winter-2) 39.9%, var(--winter-3) 40%, var(--winter-3) 64.9%, var(--winter-4) 65%, var(--winter-4) 100%);
+}
+
+*{
+	margin: 0;
+    padding: 0;
+}
+
+.background{
+	width: 100%;
+	height: 100%;
+
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-rows: 100vh 100px;
+    
+    align-items: end;
+    place-self: center;
+
+    position: absolute;
+    top: 0;
+    z-index: -1;
+}
+
+.sky-weather{
+    z-index: 2;
+    width: 100%;
+    position: absolute;
+}
+
+.sky{
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    z-index: -1;
+}
+
+.ground{
+    width: 100%;
+    height: 100px;
+
+    background: var(--ground);
+}
+
+.ground-level{
+    display: grid;
+    place-items: end;
+    grid-auto-flow: column;
+    
+    padding: 0 20px 0 20px;
+}
+
+
+.tree-group{
+    position: absolute;
+    left:10%;
+    bottom: 30px;
+
+    display: grid;
+    grid-auto-flow: row;
+    justify-items: center;
+}
+
+.tree {
+    width: 100px;
+}
+
+.shadow{
+    position: absolute;
+    bottom: -10px;
+
+    width: 100px;
+    height: 25px;
+    border-radius: 100%;
+
+    opacity: .6;
+    filter: blur(10px);
+    background: black;
+}
