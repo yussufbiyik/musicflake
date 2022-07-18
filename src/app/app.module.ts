@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { BackgroundComponent } from './background/background.component';
 
-import { environment } from 'src/environments/environment.prod';
+// import { environment } from 'src/environments/environment.prod';
 
 @NgModule({
   declarations: [
