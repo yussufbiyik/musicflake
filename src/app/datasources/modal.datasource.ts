@@ -4,7 +4,7 @@ export const Modals:Array<Modal> = [
     {
         shorthand:'faq',
         header:"<span class='emoji'>🤔</span> How does this app work?",
-        content:"First of all the app asks for your location to learn the weather conditions on your area using open-meteo.com API.<br>Then the app will try to match your weathercode with a playlist group from our database and send you the link of a random playlist from that group.",
+        content:"First of all the app asks for your location to learn the weather conditions on your area using open-meteo.com's API.<br>Then the app will try to match your weathercode with a playlist group from our database and send you the link of a random playlist from that group.",
     },
     {
         shorthand:'credits',
@@ -27,12 +27,6 @@ export const Modals:Array<Modal> = [
         <br>
         <div class="grid-row grid-columns modal-buttons">
             <a id="openInSpotifyLink" href="{{param1}}" rel="noopener"><button class="glass" id="spotify-button">Open in Spotify 🎵</button></a>
-            <div class="vote-buttons">
-                <div>
-                    <button id="upVoteButton" class="glass vote-button">👍</button>
-                    <button id="downVoteButton" class="glass vote-button">👎</button>
-                </div>
-            </div>
         </div>`,
     },
     {
@@ -45,4 +39,21 @@ export const Modals:Array<Modal> = [
             <a target="_blank" href="https://forms.gle/efjcvta5acjizhAg8" rel="noopener"><button>Open in a new tab 🔗</button></a>
         </div>`,
     },
+    // Voting feature is disabled until further update
+    // {
+    //     shorthand:'playlist',
+    //     header:"<span class='emoji'>🎁</span> Here is your playlist!",
+    //     content:`
+    //     <iframe src="{{param0}}" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    //     <br>
+    //     <div class="grid-row grid-columns modal-buttons">
+    //         <a id="openInSpotifyLink" href="{{param1}}" rel="noopener"><button class="glass" id="spotify-button">Open in Spotify 🎵</button></a>
+    //         <div class="vote-buttons">
+    //             <div>
+    //                 <button id="upVoteButton" class="glass vote-button">👍</button>
+    //                 <button id="downVoteButton" class="glass vote-button">👎</button>
+    //             </div>
+    //         </div>
+    //     </div>`,
+    // },
 ]

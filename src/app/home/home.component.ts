@@ -137,14 +137,16 @@ export class HomeComponent implements OnInit {
       // Show a notification to let the user know that the playlist is opened.
       spotifyButton.addEventListener('click', () => this.openNotification('Playlist is Opened!', 'Check your Spotify app.'))
 
-      // Upvote
-      document.getElementById("upVoteButton")?.addEventListener('click', () => {
-        this.votePlaylist(true, openInSpotifyLink)
-      })
-      // Downvote
-      document.getElementById("downVoteButton")?.addEventListener('click', () => {
-        this.votePlaylist(false, openInSpotifyLink)
-      })
+      
+      // Voting feature is disabled until further update
+      // // Upvote
+      // document.getElementById("upVoteButton")?.addEventListener('click', () => {
+      //   this.votePlaylist(true, openInSpotifyLink)
+      // })
+      // // Downvote
+      // document.getElementById("downVoteButton")?.addEventListener('click', () => {
+      //   this.votePlaylist(false, openInSpotifyLink)
+      // })
       
     }
   }
@@ -197,30 +199,31 @@ export class HomeComponent implements OnInit {
     this.openModal('playlist', {headerParameters:[], contentParameters:[playlistEmbedSource, recommendedPlaylist.uri]})
   }
 
-  votePlaylist(vote: boolean, playlistEmbedUrl:string){
-    // if(this.verified == false){
-    //   this.openNotification("Please confirm that you are a human.","Complete the captcha.")
-    //   return
-    // }
-    let votedPlaylist;
-    // console.log(playlistEmbedUrl)
-    votedPlaylist = this.Playlists.find((Playlist) => Playlist.playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
-    switch (vote) {
-      // Upvote
-      case true:
-        if(votedPlaylist!.playlist.score > 0 && votedPlaylist!.playlist.score < 100) votedPlaylist!.playlist.score += 1;
-        break;
-      // Downvote  
-      case false:
-        if(votedPlaylist!.playlist.score > 0 && votedPlaylist!.playlist.score < 100) votedPlaylist!.playlist.score -= 1;
-        break;
-      // Neither so it's an error
-      default:
-        this.openNotification("Vote is not valid", "Please report if you think this is an error.")
-        break;
-    }
-    if(this.playlistsService.dbVotePlaylist(votedPlaylist!.playlist) === false) this.openNotification("Can't find playlist in database", "Please report if you think this is an error.")
-    this.openNotification("Successfully voted the playlist", "")
-    this.verified = false
-  }
+  // Voting feature is disabled until further update
+  // votePlaylist(vote: boolean, playlistEmbedUrl:string){
+  //   // if(this.verified == false){
+  //   //   this.openNotification("Please confirm that you are a human.","Complete the captcha.")
+  //   //   return
+  //   // }
+  //   let votedPlaylist;
+  //   // console.log(playlistEmbedUrl)
+  //   votedPlaylist = this.Playlists.find((Playlist) => Playlist.playlist.uri.endsWith(playlistEmbedUrl.substring(34,76)))
+  //   switch (vote) {
+  //     // Upvote
+  //     case true:
+  //       if(votedPlaylist!.playlist.score > 0 && votedPlaylist!.playlist.score < 100) votedPlaylist!.playlist.score += 1;
+  //       break;
+  //     // Downvote  
+  //     case false:
+  //       if(votedPlaylist!.playlist.score > 0 && votedPlaylist!.playlist.score < 100) votedPlaylist!.playlist.score -= 1;
+  //       break;
+  //     // Neither so it's an error
+  //     default:
+  //       this.openNotification("Vote is not valid", "Please report if you think this is an error.")
+  //       break;
+  //   }
+  //   if(this.playlistsService.dbVotePlaylist(votedPlaylist!.playlist) === false) this.openNotification("Can't find playlist in database", "Please report if you think this is an error.")
+  //   this.openNotification("Successfully voted the playlist", "")
+  //   this.verified = false
+  // }
 }
