@@ -17,7 +17,7 @@ Listen to music based on weather conditions of your area!
 ### Possible Reasons of Issues
 
 #### First Issue
-```weather.service.ts:52``` does not return any value for the first time so the function returns "error is logged" message when there are no appearent errors that are catched by the catch block (line 65).
+```weather.service.ts:52``` does not return any value for the first time so the function only returns the text "error is logged" message when there are no appearent errors that are catched by the catch block (line 65) which means that there are no problems in the request, it's just doesn't have any effect at that moment.
 ## Roadmap
 
 ### TODO:
