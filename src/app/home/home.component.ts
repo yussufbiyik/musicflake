@@ -165,13 +165,9 @@ export class HomeComponent implements OnInit {
 
   recommendPlaylistBasedOffWeathercode(weathercode: Number){
     // Search for playlists with a compatible weathercode with the users weathercode
-    console.log("matches")
     let playlistMatches: Keyplaylist[] = this.Playlists.filter((keyplaylist:Keyplaylist) => keyplaylist.playlist.weathercodes.includes(weathercode))
     // Select a random playlist from matched playlists
-    console.log(weathercode)
-    console.log(this.Playlists)
     let recommendation: Playlist = playlistMatches[Math.floor(Math.random()*playlistMatches.length)].playlist
-    console.log("end")
     return recommendation
   }
 
@@ -181,15 +177,14 @@ export class HomeComponent implements OnInit {
 
   suggestPlaylist(){
     let weatherCode = this.weatherService.getWeatherCode()
-    console.log(weatherCode)
 
     if(weatherCode === "can't access navigator") {
       this.openNotification('Your browser does not support geolocation 😢', `We need to know your location to recommend a playlist.`);
       return
     }
 
-    if(Number(weatherCode) == NaN){
-      this.openNotification("Unknown error", "Check console for more details"); 
+    if(Number.isNaN(Number(weatherCode))){
+      this.openNotification("Unknown error", "Try one more time.<br><br>If this does not fix the issue, check the console for more details or contact me via <a href='mailto:yussuf.jpeg@gmail.com'>yussuf.jpeg@gmail.com</a> or via my <a href='https://github.com/yussufbiyik'>GitHub</a>."); 
       console.error(weatherCode)
       return;
     } 

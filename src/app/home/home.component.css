@@ -37,7 +37,8 @@
     transform: translate(-50%,0);
 
     padding: 20px;
-    width:fit-content;
+    max-width: 95vw;
+    width:max-content;
     height:fit-content;
     border-radius: 1pc;
 
