@@ -184,7 +184,7 @@ export class HomeComponent implements OnInit {
     }
 
     if(Number.isNaN(Number(weatherCode))){
-      this.openNotification("Unknown error", "Try one more time.<br><br>If this does not fix the issue, check the console for more details or contact me via <a href='mailto:yussuf.jpeg@gmail.com'>yussuf.jpeg@gmail.com</a> or via my <a href='https://github.com/yussufbiyik'>GitHub</a>."); 
+      this.openNotification("Unknown error", "Try one more time.<br>If this does not fix the issue, check the console for more details or contact me via <a href='mailto:yussuf.jpeg@gmail.com'>yussuf.jpeg@gmail.com</a> or via my <a href='https://github.com/yussufbiyik'>GitHub</a>."); 
       console.error(weatherCode)
       return;
     } 
