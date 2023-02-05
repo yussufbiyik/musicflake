@@ -21,7 +21,6 @@
     "firebase": "^9.9.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
-    "vanilla-hcaptcha": "*",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
